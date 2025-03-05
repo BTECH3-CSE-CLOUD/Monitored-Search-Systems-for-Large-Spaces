@@ -15,7 +15,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 app.get('/', (req, res) => {
-  res.render('login');
+  res.render('login'); // Login Page
+});
+
+app.get('/signup', (req, res) => {
+  res.render('signup'); // Sign Up Page
 });
 
 app.post('/login', (req, res) => {
@@ -29,7 +33,19 @@ app.post('/login', (req, res) => {
   }
 });
 
+app.post('/signup', (req, res) => {
+  const { fullname, email, password, confirmPassword } = req.body;
+
+  // Basic validation
+  if (password === confirmPassword) {
+    res.send('Sign up successful!');
+  } else {
+    res.send('Passwords do not match.');
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
